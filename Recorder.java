@@ -20,7 +20,7 @@ public class Recorder {
             int response = JOptionPane.showConfirmDialog(null, "Start recording?");
             if (Objects.equals(response, 0)){
                 ready = true;
-            }
+            } else {return;}
             startRec(ready, synth);
             JOptionPane.showMessageDialog(null, "Click \"Ok\" to stop recording");
             stopRec();

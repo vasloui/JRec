@@ -11,14 +11,15 @@ public class AudioViz {
 
 
     AudioViz(){
-        scopeInit();
         synthInit();
+        scopeInit();
 
     }
 
     private void synthInit(){
         synth = JSyn.createSynthesizer();
-        synth.add(lineIn = new LineIn());
+        lineIn = new LineIn();
+        synth.add(lineIn);
 
         int numInputChannels = 2;
         int numOutputChannels = 2;
