@@ -33,7 +33,7 @@ public class Recorder {
         if (!ready) {
             return;
         }
-        synth.setRealTime(true);
+        synth.setRealTime(false);
 
         File waveFile = new File("temp_recording.wav");
         // Default is stereo, 16 bits.

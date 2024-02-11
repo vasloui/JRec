@@ -61,6 +61,8 @@ public class Form implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         recorder.rec(viz.synth);
+        viz = new AudioViz();
+
     }
 
 //    @Override
