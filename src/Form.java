@@ -1,3 +1,5 @@
+package src;
+
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
 

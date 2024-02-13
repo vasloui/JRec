@@ -1,4 +1,7 @@
+package src;
+
 import com.jsyn.Synthesizer;
+import com.jsyn.unitgen.LineIn;
 import com.jsyn.util.WaveRecorder;
 
 import javax.swing.*;
@@ -53,4 +56,5 @@ public class Recorder {
         recorder.stop();
         recorder.close();
     }
+
 }

@@ -1,3 +1,5 @@
+package src;
+
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.devices.AudioDeviceManager;
