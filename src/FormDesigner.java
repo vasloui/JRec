@@ -6,11 +6,11 @@ import javax.swing.*;
 
 public class FormDesigner {
     public JPanel panel1;
-    private JButton button1;
+    private JButton recorderButton;
     private JSlider slider1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
+    private JButton pauseButton;
+    private JButton openButton;
+    private JButton playButton;
     public AudioScopeView audioView;
 
     public void createUIComponents() {
