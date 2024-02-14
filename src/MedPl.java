@@ -95,7 +95,7 @@ public class MedPl {
         lineOut.stop();
     }
 
-    public void openFile() {
+    public String openFile() {
         JFileChooser fileChooser = new JFileChooser();
 
         FileFilter wavFilter = new FileFilter() {
@@ -119,9 +119,14 @@ public class MedPl {
         fileChooser.setDialogTitle("Open Audio File");
         fileChooser.setAcceptAllFileFilterUsed(false);
 
+        String fileName = "";
         int userChoice = fileChooser.showOpenDialog(null);
         if (userChoice == JFileChooser.APPROVE_OPTION) {
-            sampleFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            fileName = fileChooser.getSelectedFile().getAbsolutePath();
+            sampleFile = new File(fileName);
+            return fileName;
+        } else {
+            return null;
         }
     }
 

@@ -21,24 +21,28 @@ public class Form {
     private Runnable runnable;
 
 
-    Form(){
+    Form() {
         viz = new AudioViz();
         medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer(), viz.getSample());
         frame = new JFrame();
 
-        formDesigner = new FormDesigner(){
+        formDesigner = new FormDesigner() {
             @Override
             public void createUIComponents() {
                 audioView = viz.getScope().getView();
             }
 
             @Override
-            public void recAction(){
+            public void recAction() {
                 tryOnRec();
             }
+
             @Override
-            public void openAction(){
-                medPl.openFile();
+            public void openAction() {
+                String result = medPl.openFile();
+                if (result != null) {
+                    playingfName.setText(result);
+                }
             }
 
             @Override
@@ -51,8 +55,9 @@ public class Form {
                 };
                 th.start();
             }
+
             @Override
-            public void stopAction(){
+            public void stopAction() {
                 medPl.getSamplePlayer().dataQueue.clear();
                 viz.getLineOut().stop();
             }
@@ -63,7 +68,7 @@ public class Form {
         frame.setVisible(true);
     }
 
-    Form(String title){
+    Form(String title) {
         this();
         frame.setTitle(title);
     }
@@ -73,7 +78,7 @@ public class Form {
         recorder.rec();
     }
 
-    private void tryOnRec(){
+    private void tryOnRec() {
         try {
             OnRec();
         } catch (IOException e) {

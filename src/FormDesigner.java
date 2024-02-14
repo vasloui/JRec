@@ -14,7 +14,8 @@ public abstract class FormDesigner {
     private JButton openButton;
     private JButton playButton;
     public AudioScopeView audioView;
-    private JLabel playinfText;
+    private JLabel playinfLabel;
+    public JLabel playingfName;
 
     public FormDesigner() {
         recorderButton.addActionListener(new ActionListener() {
