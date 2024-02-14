@@ -17,11 +17,15 @@ public class Form {
     private AudioViz viz;
     private FormDesigner formDesigner;
     private MedPl medPl;
+    private Thread th;
+    private Runnable runnable;
+
 
     Form(){
         viz = new AudioViz();
         medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer(), viz.getSample());
         frame = new JFrame();
+
         formDesigner = new FormDesigner(){
             @Override
             public void createUIComponents() {
@@ -36,9 +40,21 @@ public class Form {
             public void openAction(){
                 medPl.openFile();
             }
+
             @Override
-            public void playAction(){
-                medPl.play();
+            public void playAction() {
+                th = new Thread() {
+                    @Override
+                    public void run() {
+                        medPl.play();
+                    }
+                };
+                th.start();
+            }
+            @Override
+            public void stopAction(){
+                medPl.getSamplePlayer().dataQueue.clear();
+                viz.getLineOut().stop();
             }
         };
         frame.setContentPane(formDesigner.panel1);

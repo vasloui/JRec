@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a9889" class="javax.swing.JLabel">
+          <component id="a9889" class="javax.swing.JLabel" binding="playinfText">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -37,12 +37,12 @@
               <enabled value="false"/>
             </properties>
           </component>
-          <component id="af6ab" class="javax.swing.JButton" binding="pauseButton" default-binding="true">
+          <component id="af6ab" class="javax.swing.JButton" binding="stopButton" default-binding="true">
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Pause"/>
+              <text value="Stop"/>
             </properties>
           </component>
           <component id="8ba53" class="javax.swing.JButton" binding="openButton" default-binding="true">

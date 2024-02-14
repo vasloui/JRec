@@ -10,10 +10,11 @@ public abstract class FormDesigner {
     public JPanel panel1;
     private JButton recorderButton;
     private JSlider slider1;
-    private JButton pauseButton;
+    private JButton stopButton;
     private JButton openButton;
     private JButton playButton;
     public AudioScopeView audioView;
+    private JLabel playinfText;
 
     public FormDesigner() {
         recorderButton.addActionListener(new ActionListener() {
@@ -34,12 +35,12 @@ public abstract class FormDesigner {
                 playAction();
             }
         });
-//        pauseButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                pauseAction();
-//            }
-//        });
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopAction();
+            }
+        });
     }
 
     public void createUIComponents() {
@@ -49,5 +50,5 @@ public abstract class FormDesigner {
     public abstract void recAction();
     protected abstract void openAction();
     protected abstract void playAction();
-//    protected abstract void pauseAction();
+    protected abstract void stopAction();
 }

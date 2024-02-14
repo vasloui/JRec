@@ -17,6 +17,11 @@ import java.io.IOException;
 public class MedPl {
 
     private Synthesizer synth;
+
+    public VariableRateDataReader getSamplePlayer() {
+        return samplePlayer;
+    }
+
     private VariableRateDataReader samplePlayer;
     private LineOut lineOut;
     private File sampleFile;
