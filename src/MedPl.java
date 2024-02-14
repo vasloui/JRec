@@ -28,10 +28,7 @@ public class MedPl {
         this.samplePlayer = samplePlayer;
     }
 
-    private void play(String path) {
-
-
-        sampleFile = new File(path);
+    public void play() {
 
         //synth = JSyn.createSynthesizer();
 
@@ -119,7 +116,7 @@ public class MedPl {
 
         int userChoice = fileChooser.showOpenDialog(null);
         if (userChoice == JFileChooser.APPROVE_OPTION) {
-            play(fileChooser.getSelectedFile().getAbsolutePath());
+            sampleFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
         }
     }
 

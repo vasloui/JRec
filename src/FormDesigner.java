@@ -28,12 +28,12 @@ public abstract class FormDesigner {
                 openAction();
             }
         });
-//        playButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                playAction();
-//            }
-//        });
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playAction();
+            }
+        });
 //        pauseButton.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -48,6 +48,6 @@ public abstract class FormDesigner {
 
     public abstract void recAction();
     protected abstract void openAction();
-//    protected abstract void playAction();
+    protected abstract void playAction();
 //    protected abstract void pauseAction();
 }

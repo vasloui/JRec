@@ -36,6 +36,10 @@ public class Form {
             public void openAction(){
                 medPl.openFile();
             }
+            @Override
+            public void playAction(){
+                medPl.play();
+            }
         };
         frame.setContentPane(formDesigner.panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
