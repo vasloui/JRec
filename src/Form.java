@@ -2,6 +2,7 @@ package src;
 
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
+import com.jsyn.unitgen.LineOut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,10 +16,11 @@ public class Form {
     private Recorder recorder;
     private AudioViz viz;
     private FormDesigner formDesigner;
+    private MedPl medPl;
 
     Form(){
-
         viz = new AudioViz();
+        medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer(), viz.getSample());
         frame = new JFrame();
         formDesigner = new FormDesigner(){
             @Override
@@ -27,8 +29,12 @@ public class Form {
             }
 
             @Override
-            public void action(){
+            public void recAction(){
                 tryOnRec();
+            }
+            @Override
+            public void openAction(){
+                medPl.openFile();
             }
         };
         frame.setContentPane(formDesigner.panel1);
