@@ -7,9 +7,10 @@ import com.jsyn.scope.AudioScope;
 import com.jsyn.unitgen.LineIn;
 
 public class AudioViz {
-    public Synthesizer synth;
+    private Synthesizer synth;
     private LineIn lineIn;
-    public AudioScope scope;
+    private LineIn lineIn1;
+    private AudioScope scope;
 
 
     AudioViz(){
@@ -21,7 +22,9 @@ public class AudioViz {
     private void synthInit(){
         synth = JSyn.createSynthesizer();
         lineIn = new LineIn();
+        lineIn1 = new LineIn();
         synth.add(lineIn);
+        synth.add(lineIn1);
 
         int numInputChannels = 2;
         int numOutputChannels = 2;
@@ -35,5 +38,17 @@ public class AudioViz {
         scope.addProbe(lineIn.output);
         scope.start();
         scope.getView().setControlsVisible(true);
+    }
+
+    public Synthesizer getSynth(){
+        return synth;
+    }
+
+    public AudioScope getScope(){
+        return scope;
+    }
+
+    public LineIn getLineIn1(){
+        return lineIn1;
     }
 }

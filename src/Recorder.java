@@ -1,6 +1,7 @@
 package src;
 
 import com.jsyn.Synthesizer;
+import com.jsyn.scope.AudioScope;
 import com.jsyn.unitgen.LineIn;
 import com.jsyn.util.WaveRecorder;
 
@@ -12,42 +13,42 @@ import java.util.Objects;
 
 public class Recorder {
 
+    private Synthesizer synth;
+    private LineIn lineIn;
     private WaveRecorder recorder;
     boolean ready;
 
-    public void rec(Synthesizer synth) {
+    Recorder(Synthesizer synth, LineIn lineIn){
+        this.synth = synth;
+        this.lineIn = lineIn;
+    }
+
+    public void rec() throws IOException {
         ready = false;
         recorder = null;
-        try {
-
-            int response = JOptionPane.showConfirmDialog(null, "Start recording?");
-            if (Objects.equals(response, 0)){
-                ready = true;
-            } else {return;}
-            startRec(ready, synth);
-            JOptionPane.showMessageDialog(null, "Click \"Ok\" to stop recording");
-            stopRec();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    private void startRec(boolean ready, Synthesizer synth) {
-        if (!ready) {
+        int response = JOptionPane.showConfirmDialog(null, "Start recording?");
+        if (Objects.equals(response, 0)) {
+            ready = true;
+        } else {
             return;
         }
-        synth.setRealTime(false);
-
-        File waveFile = new File("temp_recording.wav");
-        // Default is stereo, 16 bits.
-        try {
-            recorder = new WaveRecorder(synth, waveFile);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Writing to WAV file " + waveFile.getAbsolutePath());
-
+        startRec(ready, synth);
+        JOptionPane.showMessageDialog(null, "Click \"Ok\" to stop recording");
+        stopRec();
     }
+
+
+    private void startRec(boolean ready, Synthesizer synth) throws FileNotFoundException {
+        File waveFile = new File("temp_recording.wav");
+        recorder = new WaveRecorder(synth, waveFile);
+        lineIn.output.connect(0, recorder.getInput(), 0);
+        lineIn.output.connect(0, recorder.getInput(), 1);
+        lineIn.start();
+        recorder.start();
+        // Default is stereo, 16 bits.
+        System.out.println("Writing to WAV file " + waveFile.getAbsolutePath());
+    }
+
 
     private void stopRec() throws IOException {
         if (Objects.equals(recorder, null)) {
@@ -55,6 +56,8 @@ public class Recorder {
         }
         recorder.stop();
         recorder.close();
+        lineIn.stop();
     }
+
 
 }
