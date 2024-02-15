@@ -3,6 +3,7 @@ package src;
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
 import com.jsyn.unitgen.LineOut;
+import com.jsyn.unitgen.VariableRateDataReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +20,16 @@ public class Form {
     private MedPl medPl;
     private Thread th;
     private Runnable runnable;
+    private PlayingTimer timer;
+    private long startTime;
+    private VariableRateDataReader samplePlayer;
 
 
     Form() {
         viz = new AudioViz();
         medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer(), viz.getSample());
         frame = new JFrame();
+        timer = new PlayingTimer();
 
         formDesigner = new FormDesigner() {
             @Override
@@ -39,9 +44,17 @@ public class Form {
 
             @Override
             public void openAction() {
-                String result = medPl.openFile();
+                String result = null;
+                try {
+                    result = medPl.openFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 if (result != null) {
                     playingfName.setText(result);
+                    duration.setText(medPl.getDur());
+                    slider1.setMaximum(((int)medPl.sample.getNumFrames())/((int)medPl.sample.getFrameRate()));
+
                 }
             }
 
@@ -50,7 +63,29 @@ public class Form {
                 th = new Thread() {
                     @Override
                     public void run() {
-                        medPl.play();
+
+                        try {
+                            medPl.playInit();
+                            samplePlayer = medPl.getSamplePlayer();
+                            startTime = System.currentTimeMillis();
+                            //duration.setText(timer.getDuration(((int)samplePlayer.dataQueue.getEndBlock().getNumFrames())/((int)samplePlayer.getFrameRate())));
+                            do {
+                                viz.synth.sleepFor(1.0);
+                                //duration.setText(timer.getDuration(medPl.getSamplePlayer()));
+                                timeLabel.setText(timer.setTimeLab(startTime));
+                                //slider1.setValue(timer.setSlider(medPl.getSamplePlayer()));
+                                slider1.setValue(timer.setSlider(samplePlayer));
+
+                            } while (medPl.getSamplePlayer().dataQueue.hasMore());
+                            medPl.playStop();
+                            timeLabel.setText("00:00:00");
+                            //duration.setText("00:00:00");
+                            slider1.setValue(0);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 };
                 th.start();

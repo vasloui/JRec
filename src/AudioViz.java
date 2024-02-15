@@ -10,12 +10,12 @@ import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.VariableRateMonoReader;
 
 public class AudioViz {
-    private Synthesizer synth;
+    public Synthesizer synth;
     private LineIn lineIn;
     private LineIn lineIn1;
     private LineOut lineOut;
     private AudioScope scope;
-    private VariableRateMonoReader samplePlayer;
+    public VariableRateMonoReader samplePlayer;
     private FloatSample sample;
 
 

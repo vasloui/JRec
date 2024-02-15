@@ -9,15 +9,23 @@ import java.awt.event.ActionListener;
 public abstract class FormDesigner {
     public JPanel panel1;
     private JButton recorderButton;
-    private JSlider slider1;
+
+    public JSlider slider1;
     private JButton stopButton;
     private JButton openButton;
     private JButton playButton;
     public AudioScopeView audioView;
     private JLabel playinfLabel;
     public JLabel playingfName;
+    public JLabel timeLabel;
+
+    public JLabel duration;
+    public FormDesigner formDesigner;
 
     public FormDesigner() {
+        formDesigner =this;
+        slider1.setValue(0);
+
         recorderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
