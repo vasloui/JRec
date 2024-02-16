@@ -6,3 +6,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Ignore Recording
+temp_recording.wav
+# Ignore git history cleanup tool
+bfg-1.14.0.jar

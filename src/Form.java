@@ -1,14 +1,8 @@
 package src;
 
-import com.jsyn.scope.AudioScope;
-import com.jsyn.scope.swing.AudioScopeView;
-import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.VariableRateDataReader;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class Form {
@@ -24,10 +18,10 @@ public class Form {
     private long startTime;
     private VariableRateDataReader samplePlayer;
 
-
+    // Initializing the app UI, implementing tha abstract methods for event handling.
     Form() {
         viz = new AudioViz();
-        medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer(), viz.getSample());
+        medPl = new MedPl(viz.getSynth(), viz.getLineOut(), viz.getSamplePlayer());
         frame = new JFrame();
         timer = new PlayingTimer();
 
@@ -68,18 +62,15 @@ public class Form {
                             medPl.playInit();
                             samplePlayer = medPl.getSamplePlayer();
                             startTime = System.currentTimeMillis();
-                            //duration.setText(timer.getDuration(((int)samplePlayer.dataQueue.getEndBlock().getNumFrames())/((int)samplePlayer.getFrameRate())));
+
                             do {
                                 viz.synth.sleepFor(1.0);
-                                //duration.setText(timer.getDuration(medPl.getSamplePlayer()));
                                 timeLabel.setText(timer.setTimeLab(startTime));
-                                //slider1.setValue(timer.setSlider(medPl.getSamplePlayer()));
                                 slider1.setValue(timer.setSlider(samplePlayer));
 
                             } while (medPl.getSamplePlayer().dataQueue.hasMore());
                             medPl.playStop();
                             timeLabel.setText("00:00:00");
-                            //duration.setText("00:00:00");
                             slider1.setValue(0);
                         } catch (IOException e) {
                             throw new RuntimeException(e);

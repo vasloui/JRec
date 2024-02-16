@@ -2,13 +2,13 @@ package src;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import com.jsyn.data.FloatSample;
 import com.jsyn.devices.AudioDeviceManager;
 import com.jsyn.scope.AudioScope;
 import com.jsyn.unitgen.LineIn;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.VariableRateMonoReader;
 
+// This is a class for creating the synthesizer and applies some logic regarding the audioports
 public class AudioViz {
     public Synthesizer synth;
     private LineIn lineIn;
@@ -16,8 +16,6 @@ public class AudioViz {
     private LineOut lineOut;
     private AudioScope scope;
     public VariableRateMonoReader samplePlayer;
-    private FloatSample sample;
-
 
     AudioViz() {
         synthInit();
@@ -66,8 +64,5 @@ public class AudioViz {
     public VariableRateMonoReader getSamplePlayer() {
         return samplePlayer;
     }
-
-    public FloatSample getSample() {
-        return sample;
-    }
+    
 }
